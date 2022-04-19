@@ -1,0 +1,24 @@
+name: admin
+
+source:
+    root: projects/admin/display-admin-client
+
+type: nodejs:14
+
+build:
+  flavor: none
+
+dependencies:
+  nodejs:
+    yarn: "*"
+
+# The configuration of app when it is exposed to the web.
+web:
+  commands:
+    start: "npm start"
+
+# The hooks that will be performed when the package is deployed.
+hooks:
+  build: |
+    set -e
+    npm install

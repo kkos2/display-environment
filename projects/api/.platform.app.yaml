@@ -1,0 +1,94 @@
+# This file describes an application. You can have multiple applications
+# in the same project.
+
+# The name of this app. Must be unique within a project.
+name: "api"
+source:
+    root: projects/api/display-api-service
+
+# The runtime the application uses.
+type: "php:8.0"
+
+runtime:
+  extensions:
+    - redis
+
+# Configuration of the build of this application.
+build:
+  flavor: composer
+
+variables:
+  php:
+    memory_limit: 256M
+
+# The build-time dependencies of the app.
+dependencies:
+  php:
+    composer/composer: "^2.0"
+
+# The relationships of the application with services or other applications.
+# The left-hand side is the name of the relationship as it will be exposed
+# to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand
+# side is in the form `<service name>:<endpoint name>`.
+relationships:
+  database: "mysqldb:mysql"
+  redis: "rediscache:redis"
+
+# The configuration of app when it is exposed to the web.
+web:
+  # Specific parameters for different URL prefixes.
+  locations:
+    "/":
+      # The folder to serve static assets for this location from.
+      # (Relative to the application root.)
+      root: "public"
+
+      # How long to allow static assets from this location to be cached.
+      # (Can be a time or -1 for no caching. Times can be suffixed with
+      # "ms" (milliseconds), "s" (seconds), "m" (minutes), "h" (hours),
+      # "d" (days), "w" (weeks), "M" (months, 30d) or "y" (years, 365d).)
+      expires: 5m
+
+      # Whether to forward disallowed and missing resources from this
+      # location to the application.
+      # (Can be true, false or a URI path string.)
+      passthru: "/index.php"
+
+      # Deny access to static files in this location.
+      allow: false
+
+      # Rules for specific URI patterns.
+      rules:
+        # Allow access to common static files.
+        ? '\.(jpe?g|png|gif|svgz?|css|js|map|ico|bmp|eot|woff2?|otf|ttf|webmanifest)$'
+        : allow: true
+        '^/robots\.txt$':
+          allow: true
+        '^/sitemap\.xml$':
+          allow: true
+  # The size of the persistent disk of the application (in MB).
+disk: 1024
+
+# The mounts that will be performed when the package is deployed.
+mounts:
+  "/public/media": "shared:files/files"
+  "/tmp": "shared:files/tmp"
+
+# The hooks executed at various points in the lifecycle of the application.
+hooks:
+  build: |
+    set -e
+
+  # We run deploy hook after your application has been deployed and started.
+  deploy: |
+    cd "$PLATFORM_DOCUMENT_ROOT"
+    $PLATFORM_APP_DIR/vendor/bin/console doctrine:migrations:migrate --no-interaction
+
+# The configuration of scheduled execution.
+crons:
+  backup:
+    spec: '15 0 * * *'
+    cmd: |
+        if [ "$PLATFORM_ENVIRONMENT_TYPE" = production ]; then
+            platform backup:create --yes --no-wait
+        fi
