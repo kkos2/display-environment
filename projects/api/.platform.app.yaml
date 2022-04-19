@@ -12,6 +12,7 @@ type: "php:8.0"
 runtime:
   extensions:
     - redis
+    - sodium
 
 # Configuration of the build of this application.
 build:
