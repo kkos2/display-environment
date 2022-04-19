@@ -14,11 +14,23 @@ dependencies:
 
 # The configuration of app when it is exposed to the web.
 web:
-  commands:
-    start: "npm start"
+  locations:
+      "/":
+          root: "public"
+          index:
+              - "index.html"
+          expires: 300s
+          scripts: true
+          allow: false
+          rules:
+              \.(css|js|gif|jpe?g|png|ttf|eot|woff2?|otf|html|ico|svg?)$:
+                  allow: true
+              ^/robots\.txt$:
+                  allow: true
 
 # The hooks that will be performed when the package is deployed.
 hooks:
   build: |
     set -e
     yarn install
+    yarn build
