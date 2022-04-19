@@ -40,5 +40,6 @@ hooks:
     curl -sS https://platform.sh/cli/installer | php
     . ~/.environment
     export
-    platform auth:api-token-login
-    echo "{\"api\": \"$(platform route:get --id=api --property=url)\"}" > build/config.json
+  deploy: |
+    export
+
