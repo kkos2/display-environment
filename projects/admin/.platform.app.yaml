@@ -1,7 +1,7 @@
 name: admin
 
 source:
-    root: projects/admin/display-admin-client
+    root: /projects/admin/display-admin-client
 
 type: nodejs:14
 

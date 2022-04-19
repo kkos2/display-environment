@@ -1,7 +1,7 @@
 name: display
 
 source:
-    root: projects/admin/display-client
+    root: /projects/admin/display-client
 
 type: nodejs:14
 
