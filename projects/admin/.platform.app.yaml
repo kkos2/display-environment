@@ -38,8 +38,7 @@ hooks:
     yarn install
     yarn build
     curl -sS https://platform.sh/cli/installer | php
-
-  deploy: |
-    set -e
     . ~/.environment
+    export
+    platform auth
     echo "{\"api\": \"$(platform route:get --id=api --property=url)\"}" > build/config.json
