@@ -4,24 +4,27 @@
 # to be processed by Platform.sh.
 
 "https://{default}/":
-  type: redirect
+  type: "redirect"
   to: "https://display.{default}/"
 
 "http://{default}/":
-  type: redirect
+  type: "redirect"
   to: "https://display.{default}/"
 
 # Admin
 "https://admin.{default}/":
-  type: upstream
+  id: "admin"
+  type: "upstream"
   upstream: "admin:http"
 
 # API
 "https://api.{default}/":
-  type: upstream
+  id: "api"
+  type: "upstream"
   upstream: "api:http"
 
 # Display
 "https://display.{default}/":
-  type: upstream
+  id: "display"
+  type: "upstream"
   upstream: "display:http"
