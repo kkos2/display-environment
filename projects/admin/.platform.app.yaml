@@ -1,22 +1,25 @@
-name: admin
+name: display
 
 source:
-    root: /projects/admin/display-admin-client
+    root: /projects/display/display-client
 
 type: nodejs:14
 
 build:
+  # We set flavor to none in order to use yarn.
+  # https://docs.platform.sh/languages/nodejs.html#use-yarn-as-a-package-manager
   flavor: none
 
 dependencies:
   nodejs:
+    # Latest yarn.
     yarn: "*"
 
 # The configuration of app when it is exposed to the web.
 web:
   locations:
       "/":
-          root: "public"
+          root: "build"
           index:
               - "index.html"
           expires: 300s
