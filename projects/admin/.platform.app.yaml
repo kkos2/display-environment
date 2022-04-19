@@ -38,5 +38,5 @@ hooks:
     yarn install
     yarn build
     curl -sS https://platform.sh/cli/installer | php
-    source ~/.environment
+    . ~/.environment
     echo "{\"api\": \"$(platform route:get --id=api --property=url)\"}" > build/config.json
