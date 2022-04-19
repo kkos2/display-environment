@@ -1,4 +1,4 @@
-name: display
+name: admin
 
 source:
     root: /projects/display/display-client
