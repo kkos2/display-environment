@@ -21,4 +21,4 @@ web:
 hooks:
   build: |
     set -e
-    npm install
+    yarn install
