@@ -33,6 +33,8 @@ variables:
       APP_DEBUG: 0
       # TODO: Find a way to avoid this
       CORS_ALLOW_ORIGIN: "*"
+      JWT_SECRET_KEY: "%kernel.project_dir%/var/jwt/private.pem"
+      JWT_PUBLIC_KEY: "%kernel.project_dir%/var/jwt/public.pem"
 
 # The build-time dependencies of the app.
 dependencies:
@@ -73,6 +75,7 @@ hooks:
   deploy: |
     set -x -e
     symfony-deploy
+    test -f /var/jwt/private.pem || echo "Generating jwt keypair" && bin/console lexik:jwt:generate-keypair
     export
 
 # The configuration of scheduled execution.
