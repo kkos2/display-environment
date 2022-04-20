@@ -27,14 +27,6 @@ variables:
   php:
     opcache.preload: /app/config/preload.php
     memory_limit: 256M
-  env:
-      # Tell Symfony to always install in production-mode.
-      APP_ENV: 'prod'
-      APP_DEBUG: 0
-      JWT_SECRET_KEY: "%kernel.project_dir%/var/jwt/private.pem"
-      JWT_PUBLIC_KEY: "%kernel.project_dir%/var/jwt/public.pem"
-      # TODO: Find a way to avoid this
-      CORS_ALLOW_ORIGIN: "*"
 
 # The build-time dependencies of the app.
 dependencies:
@@ -81,8 +73,16 @@ hooks:
   deploy: |
     set -x -e
     symfony-deploy
+
+    # Generate a JWT keypair the first time the environment starts up.
     test -f /var/jwt/private.pem || bin/console lexik:jwt:generate-keypair
-    touch var/.env.local
+
+    # Pick out the domain for this app, strip off api. and then pass it in
+    # to .env.local
+    export CORS_BASE_DOMAIN=$(echo -n "${SYMFONY_DEFAULT_ROUTE_HOST}" | sed -r 's#^api.(.*)#\1#')
+    export APP_ENV=prod
+
+    envsubst '$APP_ENV $CORS_BASE_DOMAIN' < template.env.local > var/.env.local
     export
 
 # The configuration of scheduled execution.
