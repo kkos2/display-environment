@@ -64,17 +64,9 @@ mounts:
 # The hooks executed at various points in the lifecycle of the application.
 hooks:
   build: |
-    set -x -e
+    set -x  -e
     curl -fs https://get.symfony.com/cloud/configurator | bash
     symfony-build
-    # platform variable:create --level environment --name APP_ENV --value prod  --visible-build false --visible-runtime true
-    # platform variable:create --level environment --name APP_SECRET --value prod  --visible-build false --visible-runtime true
-    # platform variable:create --level environment --name APP_ENV --value prod  --visible-build false --visible-runtime true
-    # export APP_ENV=prod
-    # export APP_SECRET=quite_unsafe
-    # # TODO, don't do this
-    # export CORS_ALLOW_ORIGIN=*
-    # envsubst '$APP_ENV $APP_SECRET $CORS_ALLOW_ORIGIN' < template-config.json > config/config.json
 
   # We run deploy hook after your application has been deployed and started.
   deploy: |
