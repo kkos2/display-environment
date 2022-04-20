@@ -1,7 +1,7 @@
 name: admin
 
 source:
-    root: /projects/display
+    root: /projects/admin
 
 type: nodejs:14
 
@@ -19,7 +19,7 @@ dependencies:
 web:
   locations:
       "/":
-          root: "display-client/build"
+          root: "display-admin-client/build"
           index:
               - "index.html"
           expires: 300s

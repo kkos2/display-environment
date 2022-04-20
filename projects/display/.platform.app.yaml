@@ -38,7 +38,7 @@ web:
 hooks:
   build: |
     set -e
-    cd display-admin-client
+    cd display-client
     yarn install
     yarn build
     curl -sS https://platform.sh/cli/installer | php
