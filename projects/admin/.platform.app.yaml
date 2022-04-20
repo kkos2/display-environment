@@ -31,14 +31,21 @@ web:
               ^/robots\.txt$:
                   allow: true
 
-      "/config":
+      "/config.json":
           root: "config"
+          index:
+              - "config.json"
+
+      "/access-config.json":
+          root: "config"
+          index:
+              - "access-config.json"
 
 # Create a disk to hold our config.json
 disk: 128
 
 mounts:
-  "/app/config": { source: local, source_path: config }
+  "config": { source: local, source_path: config }
 
 # The hooks that will be performed when the package is deployed.
 hooks:
@@ -55,6 +62,7 @@ hooks:
     echo "Deploying"
     . ~/.environment
     export API_URL=$(platform route:get --id=api --property=url)
-    envsubst '$API_URL' < template-config.json > /config/config.json
+    envsubst '$API_URL' < template-config.json > config/config.json
     echo "Resulting config.json"
-    cat /config/config.json
+    cat config/config.json
+    cp template-access-config.json config/access-config.json

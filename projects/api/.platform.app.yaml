@@ -27,10 +27,14 @@ variables:
   php:
     opcache.preload: /app/config/preload.php
     memory_limit: 256M
-    env:
-        # Tell Symfony to always install in production-mode.
-        APP_ENV: 'prod'
-        APP_DEBUG: 0
+  env:
+      # Tell Symfony to always install in production-mode.
+      APP_ENV: 'prod'
+      APP_DEBUG: 0
+      # TODO: Find a way to avoid this
+      CORS_ALLOW_ORIGIN: "*"
+      JWT_SECRET_KEY: "%kernel.project_dir%/var/jwt/private.pem"
+      JWT_PUBLIC_KEY: "%kernel.project_dir%/var/jwt/public.pem"
 
 # The build-time dependencies of the app.
 dependencies:
@@ -62,14 +66,18 @@ mounts:
 # The hooks executed at various points in the lifecycle of the application.
 hooks:
   build: |
-    set -x -e
+    set -x  -e
     curl -fs https://get.symfony.com/cloud/configurator | bash
     symfony-build
 
+    export
+
   # We run deploy hook after your application has been deployed and started.
   deploy: |
-        set -x -e
-        symfony-deploy
+    set -x -e
+    symfony-deploy
+    test -f /var/jwt/private.pem || bin/console lexik:jwt:generate-keypair
+    export
 
 # The configuration of scheduled execution.
 crons:
