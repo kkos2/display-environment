@@ -33,6 +33,8 @@ web:
 
       "/config.json":
           root: "config"
+          index:
+              - "config.json"
 
 # Create a disk to hold our config.json
 disk: 128
