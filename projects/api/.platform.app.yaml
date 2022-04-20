@@ -74,6 +74,8 @@ hooks:
     symfony-build
 
     export
+    touch /var/.env.local
+    ln -s /var/.env.local .env.local
 
   # We run deploy hook after your application has been deployed and started.
   deploy: |
