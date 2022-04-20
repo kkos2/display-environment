@@ -53,6 +53,9 @@ web:
       root: "public"
       expires: 1h
       passthru: "/index.php"
+      headers:
+        # TODO, avoid doing this
+        Access-Control-Allow-Origin: "*"
 disk: 1024
 
 mounts:
@@ -70,9 +73,6 @@ hooks:
   # We run deploy hook after your application has been deployed and started.
   deploy: |
     set -x -e
-    platform variable:create --level environment --name APP_ENV --value prod  --visible-build false --visible-runtime true
-    platform variable:create --level environment --name APP_SECRET --value quite_unsafe  --visible-build false --visible-runtime true
-    platform variable:create --level environment --name CORS_ALLOW_ORIGIN --value "$(platform route:get --id=api --property=url | sed -r 's#https://api.(.*)/#*.\1#')"  --visible-build false --visible-runtime true
     symfony-deploy
 
 # The configuration of scheduled execution.
