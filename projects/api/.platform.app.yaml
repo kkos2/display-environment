@@ -63,8 +63,9 @@ hooks:
 
     curl -fs https://get.symfony.com/cloud/configurator | bash
     symfony-build
-
+    rm .env.local.php
     ln -s ./var/.env.local .env.local
+    ln -s ./var/.env.local.php .env.local.php
 
   # We run deploy hook after your application has been deployed and started.
   deploy: |
@@ -77,6 +78,7 @@ hooks:
     envsubst '$APP_ENV $CORS_BASE_DOMAIN' < template.env.local > display-api-service/var/.env.local
 
     cd display-api-service
+    composer dump-env prod
     symfony-deploy
 
     # Generate a JWT keypair the first time the environment starts up.
