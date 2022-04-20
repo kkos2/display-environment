@@ -51,6 +51,9 @@ hooks:
 
   deploy: |
     set -e
+    echo "Deploying"
     . ~/.environment
     export API_URL=$(platform route:get --id=api --property=url)
     envsubst '$API_URL' < template-config.json > /app-config/config.json
+    echo "Result"
+    cat /app-config/config.json
