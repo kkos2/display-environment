@@ -48,8 +48,9 @@ dependencies:
 relationships:
   database: "mysqldb:mysql"
   redis: "rediscache:redis"
-  # The following
-    app2: "app2:http"
+# The following
+  admin: "admin:http"
+  display: "display:http"
 
 
 # The configuration of app when it is exposed to the web.
