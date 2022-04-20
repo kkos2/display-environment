@@ -67,11 +67,13 @@ hooks:
     set -x  -e
     curl -fs https://get.symfony.com/cloud/configurator | bash
     symfony-build
+    export
 
   # We run deploy hook after your application has been deployed and started.
   deploy: |
     set -x -e
     symfony-deploy
+    export
 
 # The configuration of scheduled execution.
 crons:
