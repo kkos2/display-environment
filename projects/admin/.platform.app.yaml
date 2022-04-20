@@ -36,6 +36,11 @@ web:
           index:
               - "config.json"
 
+      "/access-config.json":
+          root: "config"
+          index:
+              - "access-config.json"
+
 # Create a disk to hold our config.json
 disk: 128
 
@@ -60,3 +65,4 @@ hooks:
     envsubst '$API_URL' < template-config.json > config/config.json
     echo "Resulting config.json"
     cat config/config.json
+    cp template-access-config.json config/access-config.json
