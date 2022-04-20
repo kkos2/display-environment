@@ -27,12 +27,12 @@ variables:
   php:
     opcache.preload: /app/config/preload.php
     memory_limit: 256M
-    env:
-        # Tell Symfony to always install in production-mode.
-        APP_ENV: 'prod'
-        APP_DEBUG: 0
-        # TODO: Find a way to avoid this
-        CORS_ALLOW_ORIGIN: "*"
+  env:
+      # Tell Symfony to always install in production-mode.
+      APP_ENV: 'prod'
+      APP_DEBUG: 0
+      # TODO: Find a way to avoid this
+      CORS_ALLOW_ORIGIN: "*"
 
 # The build-time dependencies of the app.
 dependencies:
