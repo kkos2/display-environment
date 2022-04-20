@@ -1,0 +1,13 @@
+{
+  "authenticationEndpoint": "${API_URL}/v1/authentication/screen",
+  "dataStrategy": {
+    "type": "pull",
+    "config": {
+      "interval": 30000,
+      "endpoint": "${API_URL}",
+      "entryPoint": "/v1/screens/[ULID of screen to open]"
+    }
+  },
+  "schedulingInterval": 60000,
+  "debug": false
+}

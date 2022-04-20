@@ -1,7 +1,7 @@
 name: display
 
 source:
-    root: /projects/display/display-client
+    root: /projects/display
 
 type: nodejs:14
 
@@ -19,7 +19,7 @@ dependencies:
 web:
   locations:
       "/":
-          root: "build"
+          root: "display-client/build"
           index:
               - "index.html"
           expires: 300s
@@ -31,9 +31,19 @@ web:
               ^/robots\.txt$:
                   allow: true
 
+      "/config.json":
+          root: "config.json"
+
 # The hooks that will be performed when the package is deployed.
 hooks:
   build: |
     set -e
     yarn install
     yarn build
+    curl -sS https://platform.sh/cli/installer | php
+
+  deploy: |
+    set -e
+    . ~/.environment
+    export API_URL=$(platform route:get --id=api --property=url)
+    envsubst '$API_URL' < template-config.json > config.json
