@@ -31,10 +31,10 @@ variables:
       # Tell Symfony to always install in production-mode.
       APP_ENV: 'prod'
       APP_DEBUG: 0
-      # TODO: Find a way to avoid this
-      CORS_ALLOW_ORIGIN: "*"
       JWT_SECRET_KEY: "%kernel.project_dir%/var/jwt/private.pem"
       JWT_PUBLIC_KEY: "%kernel.project_dir%/var/jwt/public.pem"
+      # TODO: Find a way to avoid this
+      CORS_ALLOW_ORIGIN: "*"
 
 # The build-time dependencies of the app.
 dependencies:
