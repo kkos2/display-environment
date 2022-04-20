@@ -75,14 +75,14 @@ hooks:
     symfony-build
 
     export
-    ln -s /var/.env.local .env.local
+    ln -s ./var/.env.local .env.local
 
   # We run deploy hook after your application has been deployed and started.
   deploy: |
     set -x -e
     symfony-deploy
     test -f /var/jwt/private.pem || bin/console lexik:jwt:generate-keypair
-    touch /var/.env.local
+    touch var/.env.local
     export
 
 # The configuration of scheduled execution.
