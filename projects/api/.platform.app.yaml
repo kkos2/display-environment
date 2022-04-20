@@ -48,7 +48,7 @@ dependencies:
 relationships:
   database: "mysqldb:mysql"
   redis: "rediscache:redis"
-# The following
+  # The following is added for us to get a shortcort for getting a domain
   admin: "admin:http"
   display: "display:http"
 
@@ -75,7 +75,6 @@ hooks:
     symfony-build
 
     export
-    touch /var/.env.local
     ln -s /var/.env.local .env.local
 
   # We run deploy hook after your application has been deployed and started.
@@ -83,6 +82,7 @@ hooks:
     set -x -e
     symfony-deploy
     test -f /var/jwt/private.pem || bin/console lexik:jwt:generate-keypair
+    touch /var/.env.local
     export
 
 # The configuration of scheduled execution.
