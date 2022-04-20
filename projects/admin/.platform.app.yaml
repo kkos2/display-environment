@@ -38,7 +38,7 @@ web:
 disk: 128
 
 mounts:
-  "/app/config": { source: local, source_path: config }
+  "config": { source: local, source_path: config }
 
 # The hooks that will be performed when the package is deployed.
 hooks:
@@ -55,6 +55,6 @@ hooks:
     echo "Deploying"
     . ~/.environment
     export API_URL=$(platform route:get --id=api --property=url)
-    envsubst '$API_URL' < template-config.json > /config/config.json
+    envsubst '$API_URL' < template-config.json > config/config.json
     echo "Resulting config.json"
-    cat /config/config.json
+    cat config/config.json
