@@ -31,6 +31,8 @@ variables:
         # Tell Symfony to always install in production-mode.
         APP_ENV: 'prod'
         APP_DEBUG: 0
+        # TODO: Find a way to avoid this
+        CORS_ALLOW_ORIGIN: "*"
 
 # The build-time dependencies of the app.
 dependencies:
@@ -53,9 +55,6 @@ web:
       root: "public"
       expires: 1h
       passthru: "/index.php"
-      headers:
-        # TODO, avoid doing this
-        Access-Control-Allow-Origin: "*"
 disk: 1024
 
 mounts:
@@ -68,7 +67,14 @@ hooks:
     set -x -e
     curl -fs https://get.symfony.com/cloud/configurator | bash
     symfony-build
-    curl -sS https://platform.sh/cli/installer | php
+    # platform variable:create --level environment --name APP_ENV --value prod  --visible-build false --visible-runtime true
+    # platform variable:create --level environment --name APP_SECRET --value prod  --visible-build false --visible-runtime true
+    # platform variable:create --level environment --name APP_ENV --value prod  --visible-build false --visible-runtime true
+    # export APP_ENV=prod
+    # export APP_SECRET=quite_unsafe
+    # # TODO, don't do this
+    # export CORS_ALLOW_ORIGIN=*
+    # envsubst '$APP_ENV $APP_SECRET $CORS_ALLOW_ORIGIN' < template-config.json > config/config.json
 
   # We run deploy hook after your application has been deployed and started.
   deploy: |
