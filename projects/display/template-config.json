@@ -1,5 +1,5 @@
 {
-  "authenticationEndpoint": "${API_URL}/v1/authentication/screen",
+  "authenticationEndpoint": "${API_URL}v1/authentication/screen",
   "dataStrategy": {
     "type": "pull",
     "config": {
