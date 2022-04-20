@@ -32,13 +32,13 @@ web:
                   allow: true
 
       "/config":
-          root: "/config"
+          root: "config"
 
 # Create a disk to hold our config.json
 disk: 128
 
 mounts:
-  "/config": { source: local, source_path: config }
+  "/app/config": { source: local, source_path: config }
 
 # The hooks that will be performed when the package is deployed.
 hooks:
