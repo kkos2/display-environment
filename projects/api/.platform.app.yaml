@@ -65,11 +65,15 @@ hooks:
     set -x -e
     curl -fs https://get.symfony.com/cloud/configurator | bash
     symfony-build
+    curl -sS https://platform.sh/cli/installer | php
 
   # We run deploy hook after your application has been deployed and started.
   deploy: |
-        set -x -e
-        symfony-deploy
+    set -x -e
+    platform variable:create --level environment --name APP_ENV --value prod  --visible-build false --visible-runtime true
+    platform variable:create --level environment --name APP_SECRET --value quite_unsafe  --visible-build false --visible-runtime true
+    platform variable:create --level environment --name CORS_ALLOW_ORIGIN --value "$(platform route:get --id=api --property=url | sed -r 's#https://api.(.*)/#*.\1#')"  --visible-build false --visible-runtime true
+    symfony-deploy
 
 # The configuration of scheduled execution.
 crons:
