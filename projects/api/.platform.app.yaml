@@ -66,24 +66,23 @@ hooks:
     curl -fs https://get.symfony.com/cloud/configurator | bash
     symfony-build
 
-    export
     ln -s ./var/.env.local .env.local
 
   # We run deploy hook after your application has been deployed and started.
   deploy: |
     set -x -e
-    symfony-deploy
-
-    # Generate a JWT keypair the first time the environment starts up.
-    test -f /var/jwt/private.pem || bin/console lexik:jwt:generate-keypair
-
     # Pick out the domain for this app, strip off api. and then pass it in
     # to .env.local
     export CORS_BASE_DOMAIN=$(echo -n "${SYMFONY_DEFAULT_ROUTE_HOST}" | sed -r 's#^api.(.*)#\1#')
     export APP_ENV=prod
 
     envsubst '$APP_ENV $CORS_BASE_DOMAIN' < template.env.local > var/.env.local
-    export
+
+    symfony-deploy
+
+    # Generate a JWT keypair the first time the environment starts up.
+    test -f /var/jwt/private.pem || bin/console lexik:jwt:generate-keypair
+
 
 # The configuration of scheduled execution.
 crons:
