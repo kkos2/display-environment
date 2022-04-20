@@ -53,6 +53,7 @@ disk: 1024
 
 mounts:
   "/display-api-service/var": { source: local, source_path: var }
+  "/display-api-service/public/media": { source: local, source_path: media }
 
 
 # The hooks executed at various points in the lifecycle of the application.
