@@ -4,7 +4,7 @@
 # The name of this app. Must be unique within a project.
 name: "api"
 source:
-    root: /projects/api/display-api-service
+    root: /projects/api
 
 # The runtime the application uses.
 type: "php:8.0"
@@ -25,7 +25,7 @@ build:
 
 variables:
   php:
-    opcache.preload: /app/config/preload.php
+    opcache.preload: /app/display-api-service/config/preload.php
     memory_limit: 256M
 
 # The build-time dependencies of the app.
@@ -40,17 +40,13 @@ dependencies:
 relationships:
   database: "mysqldb:mysql"
   redis: "rediscache:redis"
-  # The following is added for us to get a shortcort for getting a domain
-  admin: "admin:http"
-  display: "display:http"
-
 
 # The configuration of app when it is exposed to the web.
 web:
   # Specific parameters for different URL prefixes.
   locations:
     "/":
-      root: "public"
+      root: "display-api-service/public"
       expires: 1h
       passthru: "/index.php"
 disk: 1024
@@ -63,6 +59,8 @@ mounts:
 hooks:
   build: |
     set -x  -e
+    cd display-api-service
+
     curl -fs https://get.symfony.com/cloud/configurator | bash
     symfony-build
 
@@ -76,12 +74,13 @@ hooks:
     export CORS_BASE_DOMAIN=$(echo -n "${SYMFONY_DEFAULT_ROUTE_HOST}" | sed -r 's#^api.(.*)#\1#')
     export APP_ENV=prod
 
-    envsubst '$APP_ENV $CORS_BASE_DOMAIN' < template.env.local > var/.env.local
+    envsubst '$APP_ENV $CORS_BASE_DOMAIN' < template.env.local > display-api-service/var/.env.local
 
+    cd display-api-service
     symfony-deploy
 
     # Generate a JWT keypair the first time the environment starts up.
-    test -f /var/jwt/private.pem || bin/console lexik:jwt:generate-keypair
+    test -f var/jwt/private.pem || bin/console lexik:jwt:generate-keypair
 
 
 # The configuration of scheduled execution.
@@ -90,5 +89,6 @@ crons:
     spec: '15 0 * * *'
     cmd: |
         if [ "$PLATFORM_ENVIRONMENT_TYPE" = production ]; then
+            cd display-api-service
             platform backup:create --yes --no-wait
         fi
