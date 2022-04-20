@@ -52,7 +52,7 @@ web:
 disk: 1024
 
 mounts:
-  "/var": { source: local, source_path: var }
+  "/display-api-service/var": { source: local, source_path: var }
 
 
 # The hooks executed at various points in the lifecycle of the application.
