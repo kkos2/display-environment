@@ -75,7 +75,7 @@ hooks:
   deploy: |
     set -x -e
     symfony-deploy
-    test -f /var/jwt/private.pem || echo "Generating jwt keypair" && bin/console lexik:jwt:generate-keypair
+    test -f /var/jwt/private.pem || bin/console lexik:jwt:generate-keypair
     export
 
 # The configuration of scheduled execution.
