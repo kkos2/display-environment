@@ -31,8 +31,8 @@ web:
               ^/robots\.txt$:
                   allow: true
 
-      "config":
-          root: "/config"
+      "/config":
+          root: "config"
 
 # Create a disk to hold our config.json
 disk: 128
