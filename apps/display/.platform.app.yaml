@@ -1,0 +1,58 @@
+name: display
+
+source:
+    root: /apps/display
+
+type: nodejs:14
+
+build:
+  # We set flavor to none in order to use yarn.
+  # https://docs.platform.sh/languages/nodejs.html#use-yarn-as-a-package-manager
+  flavor: none
+
+dependencies:
+  nodejs:
+    # Latest yarn.
+    yarn: "*"
+
+# The configuration of app when it is exposed to the web.
+web:
+  locations:
+      "/":
+          root: "display-client/build"
+          index:
+              - "index.html"
+          expires: 300s
+          scripts: true
+          allow: false
+          rules:
+              \.(css|js|gif|jpe?g|png|ttf|eot|woff2?|otf|html|ico|svg?)$:
+                  allow: true
+              ^/robots\.txt$:
+                  allow: true
+
+      "/config.json":
+          root: "config"
+          index:
+            - "config.json"
+
+# Create a disk to hold our config.json
+disk: 128
+
+mounts:
+  "config": { source: local, source_path: config }
+
+# The hooks that will be performed when the package is deployed.
+hooks:
+  build: |
+    set -e
+    cd display-client
+    yarn install
+    yarn build
+    curl -sS https://platform.sh/cli/installer | php
+
+  deploy: |
+    set -e
+    . ~/.environment
+    export API_URL=$(platform route:get --id=api --property=url)
+    envsubst '$API_URL' < config-templates/template-config.json > config/config.json

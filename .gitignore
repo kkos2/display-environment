@@ -1,0 +1,2 @@
+# Allow local config of the platform.sh cli
+.platform/local

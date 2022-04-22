@@ -1,0 +1,30 @@
+# The routes of the project.
+#
+# Each route describes how an incoming URL is going
+# to be processed by Platform.sh.
+
+"https://{default}/":
+  type: "redirect"
+  to: "https://display.{default}/"
+
+"http://{default}/":
+  type: "redirect"
+  to: "https://display.{default}/"
+
+# Admin
+"https://admin.{default}/":
+  id: "admin"
+  type: "upstream"
+  upstream: "admin:http"
+
+# API
+"https://api.{default}/":
+  id: "api"
+  type: "upstream"
+  upstream: "api:http"
+
+# Display
+"https://display.{default}/":
+  id: "display"
+  type: "upstream"
+  upstream: "display:http"
