@@ -1,0 +1,68 @@
+name: admin
+
+source:
+    root: /apps/admin
+
+type: nodejs:14
+
+build:
+  # We set flavor to none in order to use yarn.
+  # https://docs.platform.sh/languages/nodejs.html#use-yarn-as-a-package-manager
+  flavor: none
+
+dependencies:
+  nodejs:
+    # Latest yarn.
+    yarn: "*"
+
+# The configuration of app when it is exposed to the web.
+web:
+  locations:
+      "/":
+          root: "display-admin-client/build"
+          index:
+              - "index.html"
+          expires: 300s
+          scripts: true
+          allow: false
+          rules:
+              \.(css|js|gif|jpe?g|png|ttf|eot|woff2?|otf|html|ico|svg?)$:
+                  allow: true
+              ^/robots\.txt$:
+                  allow: true
+
+      "/config.json":
+          root: "config"
+          index:
+              - "config.json"
+
+      "/access-config.json":
+          root: "config"
+          index:
+              - "access-config.json"
+
+# Create a disk to hold our config.json
+disk: 128
+
+mounts:
+  "config": { source: local, source_path: config }
+
+# The hooks that will be performed when the package is deployed.
+hooks:
+  build: |
+    set -e
+    echo "building"
+    cd display-admin-client
+    yarn install
+    yarn build
+    curl -sS https://platform.sh/cli/installer | php
+
+  deploy: |
+    set -e
+    echo "Deploying"
+    . ~/.environment
+    export API_URL=$(platform route:get --id=api --property=url)
+    envsubst '$API_URL' < config-template/template-config.json > config/config.json
+    echo "Resulting config.json"
+    cat config/config.json
+    cp config-template/template-access-config.json config/access-config.json
