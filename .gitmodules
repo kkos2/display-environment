@@ -1,9 +1,9 @@
-[submodule "admin"]
+[submodule "apps/admin/display-admin-client"]
 	path = apps/admin/display-admin-client
 	url = https://github.com/os2display/display-admin-client.git
-[submodule "api"]
+[submodule "apps/api/display-api-service"]
 	path = apps/api/display-api-service
 	url = https://github.com/os2display/display-api-service.git
-[submodule "client"]
+[submodule "apps/display/display-client"]
 	path = apps/display/display-client
 	url = https://github.com/os2display/display-client.git
