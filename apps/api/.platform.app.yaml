@@ -4,7 +4,7 @@
 # The name of this app. Must be unique within a project.
 name: "api"
 source:
-    root: /projects/api
+    root: /apps/api
 
 # The runtime the application uses.
 type: "php:8.0"
