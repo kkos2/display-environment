@@ -4,7 +4,7 @@
 # The name of this app. Must be unique within a project.
 name: "api"
 source:
-    root: /projects/api/display-api-service
+    root: /apps/api
 
 # The runtime the application uses.
 type: "php:8.0"
@@ -25,16 +25,8 @@ build:
 
 variables:
   php:
-    opcache.preload: /app/config/preload.php
+    opcache.preload: /app/display-api-service/config/preload.php
     memory_limit: 256M
-  env:
-      # Tell Symfony to always install in production-mode.
-      APP_ENV: 'prod'
-      APP_DEBUG: 0
-      JWT_SECRET_KEY: "%kernel.project_dir%/var/jwt/private.pem"
-      JWT_PUBLIC_KEY: "%kernel.project_dir%/var/jwt/public.pem"
-      # TODO: Find a way to avoid this
-      CORS_ALLOW_ORIGIN: "*"
 
 # The build-time dependencies of the app.
 dependencies:
@@ -48,42 +40,51 @@ dependencies:
 relationships:
   database: "mysqldb:mysql"
   redis: "rediscache:redis"
-  # The following is added for us to get a shortcort for getting a domain
-  admin: "admin:http"
-  display: "display:http"
-
 
 # The configuration of app when it is exposed to the web.
 web:
   # Specific parameters for different URL prefixes.
   locations:
     "/":
-      root: "public"
+      root: "display-api-service/public"
       expires: 1h
       passthru: "/index.php"
 disk: 1024
 
 mounts:
-  "/var": { source: local, source_path: var }
+  "/display-api-service/var": { source: local, source_path: var }
+  "/display-api-service/public/media": { source: local, source_path: media }
 
 
 # The hooks executed at various points in the lifecycle of the application.
 hooks:
   build: |
     set -x  -e
+    cd display-api-service
+
     curl -fs https://get.symfony.com/cloud/configurator | bash
     symfony-build
-
-    export
-    ln -s /var/.env.local .env.local
+    rm .env.local.php
+    ln -s ./var/.env.local .env.local
+    ln -s ./var/.env.local.php .env.local.php
 
   # We run deploy hook after your application has been deployed and started.
   deploy: |
     set -x -e
+    # Pick out the domain for this app, strip off api. and then pass it in
+    # to .env.local
+    export CORS_BASE_DOMAIN=$(echo -n "${SYMFONY_DEFAULT_ROUTE_HOST}" | sed -r 's#^api.(.*)#\1#')
+    export APP_ENV=prod
+
+    envsubst '$APP_ENV $CORS_BASE_DOMAIN' < template.env.local > display-api-service/var/.env.local
+
+    cd display-api-service
+    composer dump-env prod
     symfony-deploy
-    test -f /var/jwt/private.pem || bin/console lexik:jwt:generate-keypair
-    touch /var/.env.local
-    export
+
+    # Generate a JWT keypair the first time the environment starts up.
+    test -f var/jwt/private.pem || bin/console lexik:jwt:generate-keypair
+
 
 # The configuration of scheduled execution.
 crons:
@@ -91,5 +92,6 @@ crons:
     spec: '15 0 * * *'
     cmd: |
         if [ "$PLATFORM_ENVIRONMENT_TYPE" = production ]; then
+            cd display-api-service
             platform backup:create --yes --no-wait
         fi
