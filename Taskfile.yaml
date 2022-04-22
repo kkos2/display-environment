@@ -5,3 +5,38 @@ tasks:
     cmds:
       - task --list-all
     silent: true
+
+  revision:set:
+    desc: Update a single submodule
+    summary: Requires that APP is set to a valid /apps application and that REVISION is set to a valid git refspec.
+    # Export task vars as environment variables.
+    env:
+      APP: "{{.APP}}"
+      REFSPEC: "{{.REVISION}}"
+    cmds:
+      - scripts/set-revision.sh
+    preconditions:
+      - sh: "[ ! -z {{.APP}} ]"
+        msg: "Env variable APP is not set or empty."
+      - sh: "[ ! -z {{.REVISION}} ]"
+        msg: "Env variable REVISION is not set or empty."
+
+  revision:set:all:
+    desc: Update all submodules
+    summary: Requires that REVISION is set to a valid git refspec.
+    cmds:
+      - task: revision:set
+        vars:
+          APP: "admin"
+          REVISION: "{{.REVISION}}"
+      - task: revision:set
+        vars:
+          APP: "api"
+          REVISION: "{{.REVISION}}"
+      - task: revision:set
+        vars:
+          APP: "display"
+          REVISION: "{{.REVISION}}"
+    preconditions:
+      - sh: "[ ! -z {{.REVISION}} ]"
+        msg: "Env variable REVISION is not set or empty."
