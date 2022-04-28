@@ -66,3 +66,4 @@ hooks:
     echo "Resulting config.json"
     cat config/config.json
     cp config-template/template-access-config.json config/access-config.json
+  
