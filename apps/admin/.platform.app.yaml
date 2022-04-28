@@ -1,4 +1,4 @@
-name: admin
+name: admintbr
 
 source:
     root: /apps/admin
@@ -61,7 +61,7 @@ hooks:
     set -e
     echo "Deploying"
     . ~/.environment
-    export API_URL=$(platform route:get --id=api --property=url)
+    export API_URL=$(platform route:get --id=apitbr --property=url)
     envsubst '$API_URL' < config-template/template-config.json > config/config.json
     echo "Resulting config.json"
     cat config/config.json

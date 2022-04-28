@@ -2,7 +2,7 @@
 # in the same project.
 
 # The name of this app. Must be unique within a project.
-name: "api"
+name: apitbr
 source:
     root: /apps/api
 
