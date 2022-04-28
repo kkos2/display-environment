@@ -19,7 +19,7 @@ dependencies:
 web:
   locations:
       "/":
-          root: "display-client/build"
+          root: "display-admin-client/build"
           index: ['index.html']
           scripts: false
           allow: true
