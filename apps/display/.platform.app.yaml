@@ -16,20 +16,14 @@ dependencies:
     yarn: "*"
 
 # The configuration of app when it is exposed to the web.
+
 web:
   locations:
       "/":
           root: "display-client/build"
-          index:
-              - "index.html"
-          expires: 300s
-          scripts: true
-          allow: false
-          rules:
-              \.(css|js|gif|jpe?g|png|ttf|eot|woff2?|otf|html|ico|svg?)$:
-                  allow: true
-              ^/robots\.txt$:
-                  allow: true
+          index: ['index.html']
+          scripts: false
+          allow: true
 
       "/config.json":
           root: "config"
