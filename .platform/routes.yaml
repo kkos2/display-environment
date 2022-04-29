@@ -5,26 +5,26 @@
 
 "https://{default}/":
   type: "redirect"
-  to: "https://display.{default}/"
+  to: "https://{default}/display"
 
 "http://{default}/":
   type: "redirect"
-  to: "https://display.{default}/"
+  to: "https://{default}/display"
 
 # Admin
-"https://admin.{default}/":
+"https://{default}/admin":
   id: "admin"
   type: "upstream"
   upstream: "admin:http"
 
 # API
-"https://api.{default}/":
+"https://{default}/api":
   id: "api"
   type: "upstream"
   upstream: "api:http"
 
 # Display
-"https://display.{default}/":
+"https://{default}/display":
   id: "display"
   type: "upstream"
   upstream: "display:http"
