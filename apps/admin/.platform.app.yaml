@@ -17,12 +17,14 @@ dependencies:
 
 # The configuration of app when it is exposed to the web.
 web:
+  commands:
+    start: sleep infinity
   locations:
       "/":
           root: "display-admin-client/build"
           index: ['index.html']
           scripts: false
-          passthru: false
+          passthru: true
           allow: true
 
       "/config.json":
