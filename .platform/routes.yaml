@@ -15,16 +15,16 @@
 "https://admin.{default}/":
   id: "admin"
   type: "upstream"
-  upstream: "admintbr:http"
+  upstream: "admin:http"
 
 # API
 "https://api.{default}/":
   id: "api"
   type: "upstream"
-  upstream: "apitbr:http"
+  upstream: "api:http"
 
 # Display
 "https://display.{default}/":
   id: "display"
   type: "upstream"
-  upstream: "displaytbr:http"
+  upstream: "display:http"
