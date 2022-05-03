@@ -18,7 +18,7 @@
   upstream: "admin:http"
 
 # API
-"https://{default}/api":
+"https://{default}/v1":
   id: "api"
   type: "upstream"
   upstream: "api:http"
