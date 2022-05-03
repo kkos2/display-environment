@@ -4,7 +4,7 @@
     "type": "pull",
     "config": {
       "interval": 30000,
-      "endpoint": "/v1",
+      "endpoint": "",
       "entryPoint": "/v1/screens/[ULID of screen to open]"
     }
   },
