@@ -75,7 +75,7 @@ hooks:
     # to .env.local
     export APP_ENV=prod
 
-    envsubst '$APP_ENV' < template.env.local > display-api-service/var/.env.local
+    envsubst '$APP_ENV $REDIS_URL ' < template.env.local > display-api-service/var/.env.local
 
     cd display-api-service
     composer dump-env prod
