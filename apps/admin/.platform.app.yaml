@@ -50,7 +50,7 @@ hooks:
     echo "building"
     cd display-admin-client
     yarn install
-    yarn build
+    PUBLIC_URL=/admin yarn build
     curl -sS https://platform.sh/cli/installer | php
 
   deploy: |
