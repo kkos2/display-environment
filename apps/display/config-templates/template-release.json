@@ -1,0 +1,4 @@
+{
+  "releaseTimestamp": ${DEPLOY_TIMESTAMP},
+  "releaseVersion": "${DEPLOY_VERSION}"
+}
