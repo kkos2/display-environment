@@ -25,6 +25,6 @@
 
 # Display
 "https://{default}/client":
-  id: "client"
+  id: "display"
   type: "upstream"
-  upstream: "client:http"
+  upstream: "display:http"
