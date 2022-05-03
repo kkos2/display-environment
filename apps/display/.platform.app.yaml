@@ -21,14 +21,14 @@ web:
   commands:
     start: sleep infinity
   locations:
-      "/":
+      "/display":
           root: "display-client/build"
           index: ['index.html']
           scripts: false
           passthru: true
           allow: true
 
-      "/config.json":
+      "/display/config.json":
           root: "config"
           index:
             - "config.json"

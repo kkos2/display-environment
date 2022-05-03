@@ -20,19 +20,19 @@ web:
   commands:
     start: sleep infinity
   locations:
-      "/":
+      "/admin":
           root: "display-admin-client/build"
           index: ['index.html']
           scripts: false
           passthru: true
           allow: true
 
-      "/config.json":
+      "/admin/config.json":
           root: "config"
           index:
               - "config.json"
 
-      "/access-config.json":
+      "/admin/  access-config.json":
           root: "config"
           index:
               - "access-config.json"
