@@ -5,11 +5,11 @@
 
 "https://{default}/":
   type: "redirect"
-  to: "https://{default}/display"
+  to: "https://{default}/client"
 
 "http://{default}/":
   type: "redirect"
-  to: "https://{default}/display"
+  to: "https://{default}/client"
 
 # Admin
 "https://{default}/admin":
@@ -24,7 +24,7 @@
   upstream: "api:http"
 
 # Display
-"https://{default}/display":
-  id: "display"
+"https://{default}/client":
+  id: "client"
   type: "upstream"
-  upstream: "display:http"
+  upstream: "client:http"
