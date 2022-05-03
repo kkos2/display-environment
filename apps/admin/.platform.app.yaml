@@ -35,7 +35,7 @@ hooks:
     cd display-admin-client
     yarn install
     PUBLIC_URL=/admin yarn build
-    cp ../config-template/template-config.json ./config.json
-    cp ../config-template/template-access-config.json ./access-config.json
+    cp ../config-template/template-config.json build/config.json
+    cp ../config-template/template-access-config.json build/access-config.json
     curl -sS https://platform.sh/cli/installer | php
 

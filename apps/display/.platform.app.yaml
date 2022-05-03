@@ -35,4 +35,4 @@ hooks:
     cd display-client
     yarn install
     PUBLIC_URL=/client yarn build
-    cp ../config-templates/template-config.json ./config.json
+    cp ../config-templates/template-config.json build/config.json
