@@ -49,6 +49,11 @@ web:
       root: "display-api-service/public"
       expires: 1h
       passthru: "/index.php"
+
+    "/client/media":
+      root: "display-api-service/public/media"
+      expires: 1h
+      passthru: false
 disk: 1024
 
 mounts:

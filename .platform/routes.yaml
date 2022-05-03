@@ -22,6 +22,10 @@
   id: "api"
   type: "upstream"
   upstream: "api:http"
+"https://{default}/client/media":
+  id: "api-media"
+  type: "upstream"
+  upstream: "api:http"
 
 # Display
 "https://{default}/client":
