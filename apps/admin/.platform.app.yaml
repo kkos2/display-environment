@@ -27,22 +27,6 @@ web:
           passthru: false
           allow: true
 
-      "/admin/config.json":
-          root: "config"
-          index:
-              - "config.json"
-
-      "/admin/access-config.json":
-          root: "config"
-          index:
-              - "access-config.json"
-
-# Create a disk to hold our config.json
-disk: 128
-
-mounts:
-  "config": { source: local, source_path: config }
-
 # The hooks that will be performed when the package is deployed.
 hooks:
   build: |
@@ -51,14 +35,7 @@ hooks:
     cd display-admin-client
     yarn install
     PUBLIC_URL=/admin yarn build
+    cp ../config-template/template-config.json ./config.json
+    cp ../config-template/template-access-config.json ./access-config.json
     curl -sS https://platform.sh/cli/installer | php
 
-  deploy: |
-    set -e
-    echo "Deploying"
-    . ~/.environment
-    export API_URL=$(platform route:get --id=api --property=url)
-    envsubst '$API_URL' < config-template/template-config.json > config/config.json
-    echo "Resulting config.json"
-    cat config/config.json
-    cp config-template/template-access-config.json config/access-config.json

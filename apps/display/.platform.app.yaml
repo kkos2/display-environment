@@ -28,17 +28,6 @@ web:
           passthru: false
           allow: true
 
-      "/client/config.json":
-          root: "config"
-          index:
-            - "config.json"
-
-# Create a disk to hold our config.json
-disk: 128
-
-mounts:
-  "config": { source: local, source_path: config }
-
 # The hooks that will be performed when the package is deployed.
 hooks:
   build: |
@@ -46,10 +35,4 @@ hooks:
     cd display-client
     yarn install
     PUBLIC_URL=/client yarn build
-    curl -sS https://platform.sh/cli/installer | php
-
-  deploy: |
-    set -e
-    . ~/.environment
-    export API_URL=$(platform route:get --id=api --property=url)
-    envsubst '$API_URL' < config-templates/template-config.json > config/config.json
+    cp ../config-templates/template-config.json ./config.json
