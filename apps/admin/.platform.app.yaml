@@ -32,7 +32,7 @@ web:
           index:
               - "config.json"
 
-      "/admin/  access-config.json":
+      "/admin/access-config.json":
           root: "config"
           index:
               - "access-config.json"
