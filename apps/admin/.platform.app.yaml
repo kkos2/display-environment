@@ -1,8 +1,5 @@
 name: admin
 
-source:
-    root: /apps/admin
-
 type: nodejs:14
 
 build:
@@ -17,25 +14,25 @@ dependencies:
 
 # The configuration of app when it is exposed to the web.
 web:
-  commands:
-    start: sleep infinity
   locations:
       "/admin":
           root: "display-admin-client/build"
+          # Default to serve our static index
           index: ['index.html']
+          # No not allow any scripts
           scripts: false
+          # Any misses should go to index.html which will result in React
+          # handling the request
           passthru: "/admin/index.html"
-          allow: true
 
-# The hooks that will be performed when the package is deployed.
+# Build the react app and copy/render any templates that will be needed by
+# the app at runtime.
 hooks:
   build: |
     set -e
-    echo "building"
     cd display-admin-client
     yarn install
     PUBLIC_URL=/admin yarn build
     cp ../config-template/template-config.json build/config.json
     cp ../config-template/template-access-config.json build/access-config.json
-    curl -sS https://platform.sh/cli/installer | php
 

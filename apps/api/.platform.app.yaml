@@ -1,13 +1,11 @@
-# This file describes an application. You can have multiple applications
-# in the same project.
-
-# The name of this app. Must be unique within a project.
+# The API app that is used as the backend api for OS2Display.
 name: api
 
 # The runtime the application uses.
 type: "php:8.0"
 
 runtime:
+  # Default Symfony requirements.
   extensions:
     - redis
     - apcu
@@ -31,7 +29,7 @@ dependencies:
   php:
     composer/composer: "^2"
 
-# The relationships of the application with services or other applications.
+# Setup relationships to our cache and database.
 # The left-hand side is the name of the relationship as it will be exposed
 # to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand
 # side is in the form `<service name>:<endpoint name>`.
@@ -39,47 +37,61 @@ relationships:
   database: "mysqldb:mysql"
   redis: "rediscache:redis"
 
-# The configuration of app when it is exposed to the web.
 web:
-  # Specific parameters for different URL prefixes.
   locations:
     "/":
       root: "display-api-service/public"
       expires: 1h
+      # Send all misses to symfony.
       passthru: "/index.php"
 
+    # Handle media-requests for client and admin. Both expects the files to
+    # be accessible under /client/media.
     "/client/media":
       root: "display-api-service/public/media"
       expires: 1h
+      # No not allow any scripts
+      scripts: false
+      # We're only handling static file requests
       passthru: false
+
+# Setup a disk we will use for media and var.
 disk: 1024
 
+# Setup mounts for symfony vars (mainly temporary files, but also some config.
+# see below) and media.
 mounts:
   "/display-api-service/var": { source: local, source_path: var }
   "/display-api-service/public/media": { source: local, source_path: media }
 
 
-# The hooks executed at various points in the lifecycle of the application.
 hooks:
+
+  # Build the application before deploy.
+  # Parts of this configuration has been generated via the process described
+  # in https://symfony.com/doc/current/cloud/getting-started
   build: |
-    set -x  -e
+    set -e
     cd display-api-service
 
     curl -fs https://get.symfony.com/cloud/configurator | bash
     symfony-build
     rm .env.local.php
+
+    # Link in our own .env.local and .env.local.php that we will generate in
+    # the deployment hook where we have access to the variables we need.
     ln -s ./var/.env.local .env.local
     ln -s ./var/.env.local.php .env.local.php
 
   # We run deploy hook after your application has been deployed and started.
   deploy: |
-    set -x -e
+    set -e
     # Pick out the domain for this app, strip off api. and then pass it in
     # to .env.local
     export APP_ENV=prod
-
     envsubst '$APP_ENV $REDIS_URL ' < template.env.local > display-api-service/var/.env.local
 
+    # Perform last-minute deploy actions.
     cd display-api-service
     composer dump-env prod
     symfony-deploy

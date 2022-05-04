@@ -13,19 +13,20 @@ dependencies:
     yarn: "*"
 
 # The configuration of app when it is exposed to the web.
-
 web:
-  commands:
-    start: sleep infinity
   locations:
       "/client":
           root: "display-client/build"
+          # Default to serve our static index
           index: ['index.html']
+          # No not allow any scripts
           scripts: false
+          # Any misses should go to index.html which will result in React
+          # handling the request
           passthru: "/client/index.html"
-          allow: true
 
-# The hooks that will be performed when the package is deployed.
+# Build the react app and copy/render any templates that will be needed by
+# the app at runtime.
 hooks:
   build: |
     set -e
@@ -34,6 +35,5 @@ hooks:
     cd display-client
     yarn install
     PUBLIC_URL=/client yarn build
-
     cp ../config-templates/template-config.json build/config.json
     envsubst '$DEPLOY_VERSION $DEPLOY_TIMESTAMP' < ../config-templates/template-release.json > build/release.json
