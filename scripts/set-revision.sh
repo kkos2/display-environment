@@ -34,7 +34,7 @@ case ${APP} in
     SUBMODULE_DIRECTORY="display-api-service"
     ;;
 
-  display)
+  client)
     SUBMODULE_DIRECTORY="display-client"
     ;;
 

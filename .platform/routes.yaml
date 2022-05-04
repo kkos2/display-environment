@@ -27,8 +27,8 @@
   type: "upstream"
   upstream: "api:http"
 
-# Display
+# Client (aka screen aka display)
 "https://{default}/client":
-  id: "display"
+  id: "client"
   type: "upstream"
-  upstream: "display:http"
+  upstream: "client:http"

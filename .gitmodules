@@ -4,6 +4,6 @@
 [submodule "apps/api/display-api-service"]
 	path = apps/api/display-api-service
 	url = https://github.com/os2display/display-api-service.git
-[submodule "apps/display/display-client"]
-	path = apps/display/display-client
-	url = https://github.com/os2display/display-client.git
+[submodule "apps/client/display-client"]
+	path = apps/client/display-client
+	url = git@github.com:os2display/display-client.git

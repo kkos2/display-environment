@@ -1,7 +1,4 @@
-name: display
-
-source:
-    root: /apps/display
+name: client
 
 type: nodejs:14
 

@@ -30,7 +30,7 @@ The following submodules
 
 * apps/admin/display-admin-client
 * apps/api/display-api-service
-* apps/display/display-client
+* apps/client/display-client
 
 ## Updating submodules
 
@@ -38,7 +38,7 @@ A submodule is updated via the `revision:set` and `revision:set:all` tasks.
 Both takes a revision as an argument. The revision can be any valid refspec
 such as a tag, branch or a sha.
 
-### Update admin, api and display to git tag 1.2.3
+### Update admin, api and client to git tag 1.2.3
 
 ```shell
 # Update all submodules.
@@ -48,7 +48,7 @@ $ task revision:set:all REVISION=1.2.3
 $ git push
 ```
 
-### Updating admin, api and display to the latest version of their develop branch
+### Updating admin, api and client to the latest version of their develop branch
 
 ```shell
 # Update all submodules.
@@ -60,7 +60,7 @@ $ git push
 
 ### Update a single component
 
-We're using admin as an example here, but any of admin, api and display would do.
+We're using admin as an example here, but any of admin, api and client would do.
 
 We're updating to the latest version of the develop branch, but any refspec (
   sha, tag, branch) can be used.
