@@ -35,7 +35,7 @@ tasks:
           REVISION: "{{.REVISION}}"
       - task: revision:set
         vars:
-          APP: "display"
+          APP: "client"
           REVISION: "{{.REVISION}}"
     preconditions:
       - sh: "[ ! -z {{.REVISION}} ]"
