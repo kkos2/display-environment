@@ -32,6 +32,16 @@ The following submodules
 * apps/api/display-api-service
 * apps/client/display-client
 
+## Platform.sh configuration
+
+As mentioned above the deployment is split up into three individual platform.sh
+"apps".
+
+### Admin and Client
+
+Both of these apps are React apps, and as such are static and does not require
+any dynamic server-side scripting.
+
 ## Updating submodules
 
 A submodule is updated via the `revision:set` and `revision:set:all` tasks.
