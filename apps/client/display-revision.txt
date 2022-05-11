@@ -1,2 +1,0 @@
-refspec: develop
-sha: 18ef31ba57cabc6c59b06aee60f0de3190cdde28
