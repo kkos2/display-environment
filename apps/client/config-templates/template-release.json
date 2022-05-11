@@ -1,4 +1,5 @@
 {
-  "releaseTimestamp": "${DEPLOY_TIMESTAMP}",
+  "releaseTimestamp": ${DEPLOY_TIMESTAMP},
+  "releaseTime": "${DEPLOY_TIME}",
   "releaseVersion": "${DEPLOY_VERSION}"
 }

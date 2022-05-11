@@ -31,9 +31,10 @@ hooks:
   build: |
     set -e
     export DEPLOY_VERSION="$(tr '\n' ' ' < display-revision.txt)"
-    export DEPLOY_TIMESTAMP="$(date)"
+    export DEPLOY_TIMESTAMP="$(date +%s)"
+    export DEPLOY_TIME="$(date)"
     cd display-client
     yarn install
     PUBLIC_URL=/client yarn build
     cp ../config-templates/template-config.json build/config.json
-    envsubst '$DEPLOY_VERSION $DEPLOY_TIMESTAMP' < ../config-templates/template-release.json > build/release.json
+    envsubst '$DEPLOY_VERSION $DEPLOY_TIMESTAMP $DEPLOY_TIME' < ../config-templates/template-release.json > build/release.json
