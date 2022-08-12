@@ -37,6 +37,14 @@ tasks:
         vars:
           APP: "client"
           REVISION: "{{.REVISION}}"
+      # We could add integration in here as well, but as it essentially another
+      # project we're yet to determine whether we want its tags to track
+      # display "core"
+      #
+      # - task: revision:set
+      #   vars:
+      #     APP: "integration"
+      #     REVISION: "{{.REVISION}}"
     preconditions:
       - sh: "[ ! -z {{.REVISION}} ]"
         msg: "Env variable REVISION is not set or empty."

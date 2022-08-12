@@ -38,6 +38,10 @@ case ${APP} in
     SUBMODULE_DIRECTORY="display-client"
     ;;
 
+  integration)
+    SUBMODULE_DIRECTORY="kk-display-integration"
+    ;;
+
   *)
     echo "Unknown app ${APP}"
     exit 1
