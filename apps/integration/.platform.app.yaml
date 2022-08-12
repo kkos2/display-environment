@@ -9,7 +9,7 @@ web:
   commands:
     # Plain npm start - all configurations are passed in via platform.sh
     # environment variables.
-    start: "cd kk-display-integration && npm start:prod"
+    start: "cd kk-display-integration && npm run start:prod"
 
 hooks:
   build: |
