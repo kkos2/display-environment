@@ -1,5 +1,5 @@
 # Setup variable that points to the display api.
 DISPLAY_API_ENDPOINT=$(echo "${PLATFORM_ROUTES}" | base64 --decode | jq -r 'to_entries[] | select (.value.id == "api") | .key')
 # Remov /v1 suffix from the api if present.
-DISPLAY_API_ENDPOINT=${DISPLAY_API_ENDPOINT%"/v1"}
-NODE_ENV=prod
+export DISPLAY_API_ENDPOINT=${DISPLAY_API_ENDPOINT%"/v1"}
+export NODE_ENV=prod
