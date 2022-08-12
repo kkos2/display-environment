@@ -1,0 +1,18 @@
+# The kk-integration app that is used to pull in data from external services
+# and synchronize the api server
+name: integration
+
+# The runtime the application uses.
+type: nodejs:14
+
+web:
+  commands:
+    # Plain npm start - all configurations are passed in via platform.sh
+    # environment variables.
+    start: "npm start"
+
+hooks:
+  build: |
+    set -e
+    npm install
+    npm build
