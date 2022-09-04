@@ -32,3 +32,9 @@
   id: "client"
   type: "upstream"
   upstream: "client:http"
+
+# Integration
+"https://{default}/integration":
+  id: "integration"
+  type: "upstream"
+  upstream: "integration:http"
