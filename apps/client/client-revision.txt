@@ -1,2 +1,2 @@
-refspec: main
-sha: ee08b2c93eb3974cf39ff381cd8444a3766901cf
+refspec: 1.2.0
+sha: 225ae653328f83f7a15ac8cccea6bd02fbf7ceaa
