@@ -57,11 +57,13 @@ cd "${SUBMODULE_DIRECTORY}"
 git fetch origin "${REFSPEC}"
 # Make sure we clean with regards to the current revision
 git clean -df
+
+# Get the SHA for the thing we're checking out. The refspec could be a tag, or
+# itself a sha.
+SUBMODULE_SHA=$(git rev-parse ${REFSPEC})
+
 # Then reset the working directory to this ref.
-git reset --hard origin/"${REFSPEC}"
-# Find out what the refspec resolved to. Eg, get the SHA for the tag we just
-# checked out.
-SUBMODULE_SHA=$(git rev-parse HEAD)
+git reset --hard "${SUBMODULE_SHA}"
 cd ..
 
 cat <<EOT > "${REVISION_FILE}"
