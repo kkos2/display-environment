@@ -31,16 +31,27 @@ The following submodules
 * apps/admin/display-admin-client
 * apps/api/display-api-service
 * apps/client/display-client
+* apps/integration/kk-display-integration
 
 ## Platform.sh configuration
 
-As mentioned above the deployment is split up into three individual platform.sh
+As mentioned above the deployment is split up into four individual platform.sh
 "apps".
 
 ### Admin and Client
 
 Both of these apps are React apps, and as such are static and does not require
 any dynamic server-side scripting.
+
+### API
+
+The backend API-server that stores and mutates the state of the OSDisplay
+installation.
+
+### KK Display Integration
+
+Backend server that extracts information from various KK information systems
+and uses the OS2Display API to update slides with this information.
 
 ## Updating submodules
 
@@ -52,7 +63,7 @@ such as a tag, branch or a sha.
 
 ```shell
 # Update all submodules.
-$ task revision:set:all REVISION=1.2.3
+$ task revision:set:core REVISION=1.2.3
 
 # Push the result to github, triggering a platform.sh deploy.
 $ git push
@@ -62,7 +73,7 @@ $ git push
 
 ```shell
 # Update all submodules.
-$ task revision:set:all REVISION=develop
+$ task revision:set:core REVISION=develop
 
 # Push the result to github, triggering a platform.sh deploy
 $ git push
@@ -70,14 +81,15 @@ $ git push
 
 ### Update a single component
 
-We're using admin as an example here, but any of admin, api and client would do.
+We're using `integration` as an example here, but any of `integration`, `admin`,
+ `api` and `client` would do.
 
 We're updating to the latest version of the develop branch, but any refspec (
   sha, tag, branch) can be used.
 
 ```shell
-# Update the admin submodule.
-$ task revision:set APP=admin REVISION=develop
+# Update the integration submodule.
+$ task revision:set APP=integration REVISION=develop
 
 # Push the result to github, triggering a platform.sh deploy
 $ git push
