@@ -2,7 +2,7 @@
 name: api
 
 # The runtime the application uses.
-type: "php:8.0"
+type: "php:8.2"
 
 runtime:
   # Default Symfony requirements.
