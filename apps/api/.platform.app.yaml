@@ -83,6 +83,9 @@ hooks:
     ln -s ./var/.env.local .env.local
     ln -s ./var/.env.local.php .env.local.php
 
+    # Copy in our configuration
+    cp -v ../config/* config/packages/prod/
+
   # We run deploy hook after your application has been deployed and started.
   deploy: |
     set -e
