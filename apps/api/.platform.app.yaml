@@ -112,3 +112,9 @@ crons:
             cd display-api-service
             platform backup:create --yes --no-wait
         fi
+  # Delete expired refresh tokens at 02 every day.
+  clear-tokens:
+    spec: '0 2 * * *'
+    cmd: |
+        cd display-api-service
+        bin/console gesdinet:jwt:clear
