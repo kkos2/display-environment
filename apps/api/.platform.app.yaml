@@ -56,7 +56,7 @@ web:
       passthru: false
 
 # Setup a disk we will use for media and var.
-disk: 1024
+disk: 4096
 
 # Setup mounts for symfony vars (mainly temporary files, but also some config.
 # see below) and media.
