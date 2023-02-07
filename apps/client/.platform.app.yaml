@@ -1,5 +1,8 @@
 name: client
 
+# Static web-app, we want to allocate as few resources as possible.
+size: S
+
 type: nodejs:14
 
 build:
