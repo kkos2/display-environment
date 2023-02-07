@@ -5,7 +5,7 @@ name: api
 type: "php:8.2"
 
 # We want to make sure we allocate any surplus resources to the api.
-size: XL
+size: 2XL
 
 runtime:
   # Default Symfony requirements.
