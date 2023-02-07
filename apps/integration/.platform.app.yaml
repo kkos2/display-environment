@@ -4,7 +4,7 @@ name: integration
 
 # Integration is a backend app, so we are ok with starving it a bit compared
 # to api.
-size: M
+size: L
 
 # The runtime the application uses.
 type: nodejs:14
