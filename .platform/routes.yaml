@@ -16,6 +16,8 @@
   id: "admin"
   type: "upstream"
   upstream: "admin:http"
+  cache:
+      enabled: true
 
 # API
 "https://{default}/v1":
@@ -32,6 +34,8 @@
   id: "client"
   type: "upstream"
   upstream: "client:http"
+  cache:
+      enabled: true
 
 # Integration
 "https://{default}/integration":
