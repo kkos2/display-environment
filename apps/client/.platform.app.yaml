@@ -19,7 +19,7 @@ dependencies:
 web:
   locations:
       "/client/config.json":
-          root: "display-admin-client/build"
+          root: "display-client/build"
           # Enable caching
           # This will take the load off the server and generally prevent the
           # client request to reach the backend server.
@@ -43,7 +43,7 @@ web:
 hooks:
   build: |
     set -e
-    export DEPLOY_VERSION="$(tr '\n' ' ' < display-revision.txt)"
+    export DEPLOY_VERSION="$(tr '\n' ' ' < client-revision.txt)"
     export DEPLOY_TIMESTAMP="$(date +%s)"
     export DEPLOY_TIME="$(date)"
     cd display-client
