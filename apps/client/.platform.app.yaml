@@ -27,12 +27,12 @@ web:
           # Any misses should go to index.html which will result in React
           # handling the request
           passthru: "/client/index.html"
-          # rules:
-          #   'config.json':
-          #     # Enable caching
-          #     # This will take the load off the server and generally prevent the
-          #     # client request to reach the backend server.
-          #     expires: 1m
+          rules:
+            'config.json':
+              # Enable caching
+              # This will take the load off the server and generally prevent the
+              # client request to reach the backend server.
+              expires: 1m
 
 
 # Build the react app and copy/render any templates that will be needed by
