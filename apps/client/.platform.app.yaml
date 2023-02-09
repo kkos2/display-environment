@@ -18,16 +18,6 @@ dependencies:
 # The configuration of app when it is exposed to the web.
 web:
   locations:
-      "/client/config.json":
-          root: "display-client/build"
-          # Enable caching
-          # This will take the load off the server and generally prevent the
-          # client request to reach the backend server.
-          expires: 1m
-          # No not allow any scripts
-          scripts: false
-          # Static assert.
-          passthru: false
       "/client":
           root: "display-client/build"
           # Default to serve our static index
@@ -37,6 +27,13 @@ web:
           # Any misses should go to index.html which will result in React
           # handling the request
           passthru: "/client/index.html"
+          # rules:
+          #   'config.json':
+          #     # Enable caching
+          #     # This will take the load off the server and generally prevent the
+          #     # client request to reach the backend server.
+          #     expires: 1m
+
 
 # Build the react app and copy/render any templates that will be needed by
 # the app at runtime.
