@@ -11,21 +11,18 @@
   type: "redirect"
   to: "https://{default}/client"
 
+"https://{default}/admin/config.json":
+  type: "upstream"
+  upstream: "admin:http"
+  cache:
+      enabled: true
+      cookies: []
+      default_ttl: 600
 # Admin
 "https://{default}/admin":
   id: "admin"
   type: "upstream"
   upstream: "admin:http"
-
-# Admin
-"https://{default}/admin/config.json":
-  id: "admin"
-  type: "upstream"
-  upstream: "admin:http"
-  cache:
-      enabled: true
-      cookies: ['*']
-      default_ttl: 600
 
 # API
 "https://{default}/v1":
