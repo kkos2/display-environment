@@ -5,7 +5,7 @@
   "dataStrategy": {
     "type": "pull",
     "config": {
-      "interval": 60000,
+      "interval": 900000,
       "endpoint": "",
       "entryPoint": "/v1/screens/[ULID of screen to open]"
     }
