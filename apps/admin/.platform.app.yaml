@@ -18,6 +18,17 @@ dependencies:
 # The configuration of app when it is exposed to the web.
 web:
   locations:
+      "/admin/config.json":
+          root: "display-admin-client/build"
+          # Enable caching
+          # This will take the load off the server and generally prevent the
+          # client request to reach the backend server.
+          expires: 1m
+          # No not allow any scripts
+          scripts: false
+          # Static assert.
+          passthru: false
+
       "/admin":
           root: "display-admin-client/build"
           # Default to serve our static index
