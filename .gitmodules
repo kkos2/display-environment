@@ -6,7 +6,7 @@
 	url = https://github.com/os2display/display-api-service.git
 [submodule "apps/client/display-client"]
 	path = apps/client/display-client
-	url = https://github.com/os2display/display-client.git
+	url = https://github.com/kkos2/display-client.git
 [submodule "apps/integration/kk-display-integration"]
 	path = apps/integration/kk-display-integration
 	url = https://github.com/kkos2/kk-display-integration.git
