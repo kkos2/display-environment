@@ -1,2 +1,2 @@
-refspec: NYOSD-151
-sha: e3f218c99b8cff68ab127d5e1ba9ac87f1fad5df
+refspec: feature/NYOSD-165-wake-lock
+sha: b8e5ed5b5016b48b758ec464fd8a7df57abdaac8
