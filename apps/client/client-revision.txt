@@ -1,2 +1,2 @@
-refspec: NYOSD-151
-sha: e3f218c99b8cff68ab127d5e1ba9ac87f1fad5df
+refspec: kk-develop
+sha: b25c89039f34eece661256eb277a6fa3e2fd4d74
